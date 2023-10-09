@@ -17,3 +17,7 @@ export enum MessageTypes {
 export enum ChatMessageTypes {
   JOIN, ACTIVE, TYPING, PASSIVE
 }
+
+export enum ReactionTypes {
+  LIKE, LOVE, HAHA, WOW, SAD, ANGRY 
+}

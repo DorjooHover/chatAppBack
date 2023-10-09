@@ -8,6 +8,8 @@ export class Messages {
   static successUpdated = "Амжилттай өөрчиллөө."
   static successRegistered = "Амжилттай бүртгэл үүсгэлээ."
   static successLoggedIn = "Амжилттай нэвтэрлээ."
+  static successCreated = "Амжилттай үүсгэлээ."
+  static successJoin = "Амжилттай нэгдлээ."
   
   
   // warning messages

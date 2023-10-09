@@ -12,35 +12,32 @@ export type ChatDocument = Document & Chat;
 
 @Schema({ timestamps: true })
 export class Chat {
-  @ApiProperty()
-  @IsEnum(ChatTypes)
+
   @Prop({ required: true })
   types: ChatTypes;
 
-  @ApiProperty()
-  @IsNotEmpty()
   @Prop({required: true})
   name: string
 
-  @ApiProperty()
-  @IsInt()
+  @Prop()
+  nickname: string
+
   @Prop()
   number: number
-  
-  @ApiProperty({type: Message})
+
   @Prop()
   pin: Message
 
-  @ApiProperty({type: User, required: true})
-  @Prop({required: true})
+
+  @Prop()
   teacher: User
 
-  @ApiProperty({type: User, required: true})
+
   @Prop({required: true})
   created: User
 
-
-
+  @Prop()
+  users: User[]
 
  
 }

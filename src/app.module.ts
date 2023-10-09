@@ -8,6 +8,7 @@ import { MessageModule } from './resourses/message/message.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import appConfig from './config/app.config';
 import { ConfigModule } from '@nestjs/config';
+import { ChatModule } from './resourses/chat/chat.module';
 
 
 @Module({
@@ -26,7 +27,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     AuthModule,
     MessageModule,
-    
+    ChatModule,
   ],
   controllers: [],
   providers: [  {
