@@ -17,20 +17,20 @@ import { UserDto } from './user.dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
-@ApiTags("User")
-@UseGuards(AuthGuard)
+@ApiTags('User')
+// @UseGuards(AuthGuard)
 export class UserController {
   constructor(private service: UserService) {}
 
   @Get()
-  @Roles(UserTypes.ADMIN)
+  // @Roles(UserTypes.ADMIN)
   findAll() {
     return this.service.findAll();
   }
 
-  @Get('me') 
-  findMe(@Request() {user}) {
-    return this.service.findMe(user['_id'])
+  @Get('me')
+  findMe(@Request() { user }) {
+    return this.service.findMe(user['_id']);
   }
 
   @Get(':email')
