@@ -13,7 +13,7 @@ export class UserService {
   }
 
   async findMe(id: String) {
-    return await this.model.findById(id)
+    return await this.model.findById(id);
   }
 
   async findAll() {
@@ -22,11 +22,9 @@ export class UserService {
 
   async create(dto: UserDto) {
     try {
-      return await this.model.create(dto)
-      
-    } catch (error) {
-      
-    }
+      console.log(dto);
+      return await this.model.create(dto);
+    } catch (error) {}
   }
 
   async updateOne(user: User, dto: UserDto) {
@@ -62,6 +60,5 @@ export class UserService {
 
   async deleteMany() {
     return await this.model.deleteMany();
-    
   }
 }

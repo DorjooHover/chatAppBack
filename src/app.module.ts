@@ -1,21 +1,20 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './guards/role.guard';
-import { UserModule } from './resourses/user/user.module';
-import { AuthModule } from './resourses/auth/auth.module';
+import { UserModule } from './resources/user/user.module';
+import { AuthModule } from './resources/auth/auth.module';
 import { AuthGuard } from './guards/auth.guard';
-import { MessageModule } from './resourses/message/message.module';
+import { MessageModule } from './resources/message/message.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import appConfig from './config/app.config';
 import { ConfigModule } from '@nestjs/config';
-import { ChatModule } from './resourses/chat/chat.module';
-
+import { ChatModule } from './resources/chat/chat.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [appConfig]
+      load: [appConfig],
     }),
 
     MongooseModule.forRoot(appConfig().dbUrl, {
@@ -30,11 +29,11 @@ import { ChatModule } from './resourses/chat/chat.module';
     ChatModule,
   ],
   controllers: [],
-  providers: [  {
-    provide: APP_GUARD,
-    useClass: RolesGuard,
-  },
-  
-],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}
