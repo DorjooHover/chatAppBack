@@ -5,17 +5,17 @@ import { MessageTypes, ReactionTypes } from "src/utlis/enum";
 
 export class MessageDto {
     @ApiProperty({type: MessageTypes})
-    @IsEnum(MessageTypes)
-    @IsNotEmpty()
+    // @IsEnum(MessageTypes)
+    // @IsNotEmpty()
     messageType: string
 
     @ApiProperty()
-    @IsString()
+    // @IsString()
     content: string
 
-    @ApiProperty({type: User})
+    @ApiProperty()
 
-    sender: User
+    sender: string
 
     @ApiProperty({type: Array<Reaction>})
     reactions: Array<Reaction>
@@ -41,7 +41,7 @@ export class Reaction {
 
 export class UserReaction {
     @ApiProperty()
-    user: User
+    user: string
 
     @ApiProperty({type: ReactionTypes})
     reaction: ReactionTypes
@@ -52,7 +52,7 @@ export class MessageReaction {
     id: string
     @ApiProperty({type: ReactionTypes})
     reaction: ReactionTypes
-    @ApiProperty({type: User})
-    user: User
+    @ApiProperty()
+    user: string
 
 }

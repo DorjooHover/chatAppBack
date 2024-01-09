@@ -9,13 +9,13 @@ export class UserDto {
   email: string;
 
   @ApiProperty()
-  @IsString()
+  // @IsString()
   username: string;
 
   @ApiProperty()
   nickname: string;
 
   @ApiProperty()
-  @IsString()
+  // @IsString()
   profileImg: string;
 }

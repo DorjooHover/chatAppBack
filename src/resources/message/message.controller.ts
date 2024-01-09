@@ -1,4 +1,4 @@
-import { Controller, Param , Get} from '@nestjs/common';
+import { Controller, Param , Get, Delete} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MessageService } from './message.service';
 
@@ -10,5 +10,10 @@ export class MessageController {
   findByChat(@Param('chat') chat: string) 
   {
     return this.service.findByChat(chat)
+  }
+
+  @Delete()
+  delete() {
+    return this.service.deleteAll()
   }
 }

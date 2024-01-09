@@ -54,7 +54,7 @@ export class ChatService {
     }
   }
 
-  async join(id: string, user: User) {
+  async join(id: string, user: string) {
     try {
       await this.model.findByIdAndUpdate(id, {
         $addToSet: { users: user },

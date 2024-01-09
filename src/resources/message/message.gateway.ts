@@ -24,21 +24,26 @@ export class MessageGateway {
   constructor(private readonly service: MessageService) {}
   @WebSocketServer()
   server: Server;
-
-  @SubscribeMessage('send')
+  @SubscribeMessage('join')
+  join(@MessageBody() data: string, @ConnectedSocket() client: Socket) {
+    client.join(data);
+  }
+  @SubscribeMessage('leave')
+  leave(@MessageBody() data: string, @ConnectedSocket() client: Socket) {
+    client.leave(data);
+  }
+  @SubscribeMessage('message')
   async findAll(
     @ConnectedSocket() client: Socket,
     @MessageBody() data: MessageDto,
   ) {
-    let res = await this.service.create(data);
-
-    this.server.emit('responseMessage', {
-      sender: res.sender,
-      messageType: res.messageType,
-      content: res.content,
-      reactions: res.reactions,
-      chat: res.chat,
-      usersReaction: res.usersReaction,
+    if (data.content == null || data.content == undefined) {
+    } else {
+      await this.service.create(data);
+    }
+    const messages = await this.service.findByChat(data.chat);
+    this.server.to(data.chat).emit('message', {
+      "messages": messages,
     });
   }
 
