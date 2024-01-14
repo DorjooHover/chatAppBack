@@ -8,6 +8,7 @@ export enum UserTypes {
 export enum ChatTypes {
   GROUP = 'GROUP',
   TEAM = 'TEAM',
+  ALL = 'ALL',
 }
 
 export enum MessageTypes {

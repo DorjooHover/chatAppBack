@@ -19,7 +19,7 @@ export class AuthController {
   @Post('login')
   signIn(@Body() dto: UserDto) {
     let res = this.authService.signIn(dto);
-    console.log(res);
+   
     return res;
   }
 }

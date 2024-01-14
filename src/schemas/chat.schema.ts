@@ -21,6 +21,8 @@ export class Chat {
 
   @Prop()
   number: number;
+  @Prop()
+  groupNumber: number;
 
   @Prop({ type: Types.ObjectId, ref: 'Messages' })
   pin: string;
@@ -36,3 +38,9 @@ export class Chat {
 }
 
 export const ChatSchema = SchemaFactory.createForClass(Chat);
+ChatSchema.index({
+  name: 'text',
+  nickname: 'text',
+  number: 'text',
+  groupNumber: 'text',
+});

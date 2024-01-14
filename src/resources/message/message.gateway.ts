@@ -37,13 +37,18 @@ export class MessageGateway {
     @ConnectedSocket() client: Socket,
     @MessageBody() data: MessageDto,
   ) {
-    if (data.content == null || data.content == undefined) {
+    if (
+      data.content == null ||
+      data.content == undefined ||
+      data.content == ''
+    ) {
     } else {
       await this.service.create(data);
     }
     const messages = await this.service.findByChat(data.chat);
+
     this.server.to(data.chat).emit('message', {
-      "messages": messages,
+      messages: messages,
     });
   }
 

@@ -1,6 +1,6 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, model } from 'mongoose';
+import { Model, Types, model } from 'mongoose';
 import { Chat, Message, MessageDocument, Reaction, User, UserDocument } from 'src/schemas';
 import { MessageDto, MessageReaction } from './message.dto';
 
@@ -41,7 +41,7 @@ export class MessageService {
           quantity: 0,
         },
       ];
-      return await this.model.create(dto);
+      return await this.model.create({sender: new Types.ObjectId(dto.sender), ...dto});
     } catch (e) {
       throw new HttpException(e, 500);
     }
@@ -51,7 +51,7 @@ export class MessageService {
     try {
       return await this.model
         .find({ chat: id })
-        .sort({ createdAt: -1 })
+        .sort({ createdAt: 1 })
         .populate('sender', 'role email username nickname profileImg', this.userModel);
     } catch (error) {
       throw new HttpException(error, 500);

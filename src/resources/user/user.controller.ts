@@ -18,7 +18,7 @@ import { ApiTags } from '@nestjs/swagger';
 
 @Controller('user')
 @ApiTags('User')
-// @UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class UserController {
   constructor(private service: UserService) {}
 
@@ -36,6 +36,18 @@ export class UserController {
   @Get(':email')
   findOneByEmail(@Param('email') email: string) {
     return this.service.findOne(email);
+  }
+  @Get('/id/:id')
+  findId(@Param('id') id: string) {
+    return this.service.findById(id);
+  }
+  @Get('/search/:type/:value')
+  findUser(
+    @Param('type') type: UserTypes,
+    @Param('value') value: string,
+    @Request() { user },
+  ) {
+    return this.service.search(type, value, user['_id']);
   }
 
   @Put()

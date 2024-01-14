@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { Message, User, UserDocument } from 'src/schemas';
 import { UserDto } from './user.dto';
 import { Messages } from 'src/utlis/strings';
+import { UserTypes } from 'src/utlis/enum';
 
 @Injectable()
 export class UserService {
@@ -11,9 +12,44 @@ export class UserService {
   async findOne(email: string): Promise<User | undefined> {
     return await this.model.findOne({ email });
   }
+  async findById(id: string): Promise<User | undefined> {
+    return await this.model.findById(id);
+  }
 
   async findMe(id: String) {
     return await this.model.findById(id);
+  }
+  async search(type: UserTypes, value: string, user: string) {
+    try {
+
+      return value == null || value == ' ' || value == undefined
+        ? await this.model
+            .find({
+              _id: { $ne: user },
+              role: type,
+            })
+            .exec()
+        : await this.model
+            .aggregate([
+              {
+                $match: {
+                  role: type,
+                  $and: [
+                    {
+                      $or: [
+                        { email: { $regex: value } },
+                        { username: { $regex: value } },
+                      ],
+                    },
+                    {
+                      $ne: { _id: user },
+                    },
+                  ],
+                },
+              },
+            ])
+            .exec();
+    } catch (error) {}
   }
 
   async findAll() {
@@ -22,7 +58,6 @@ export class UserService {
 
   async create(dto: UserDto) {
     try {
-      console.log(dto);
       return await this.model.create(dto);
     } catch (error) {}
   }
