@@ -1,21 +1,22 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types, model } from 'mongoose';
-import { Chat, ChatDocument, Message, User } from 'src/schemas';
+import { Chat, ChatDocument, Message, User, UserDocument } from 'src/schemas';
 import { ChatDto } from './chat.dto';
 import { Messages } from 'src/utlis/strings';
-import { ChatTypes } from 'src/utlis/enum';
+import { ChatTypes, UserTypes } from 'src/utlis/enum';
 
 @Injectable()
 export class ChatService {
-  constructor(@InjectModel(Chat.name) private model: Model<ChatDocument>) {}
+  constructor(
+    @InjectModel(Chat.name) private model: Model<ChatDocument>,
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+  ) {}
 
   async create(dto: ChatDto, user: string) {
     try {
-      
       const chat = await this.model.findById(new Types.ObjectId(dto.chat));
-      if(chat) {
-
+      if (chat) {
         await this.model.create({
           created: user,
           name: chat.name,
@@ -45,7 +46,7 @@ export class ChatService {
       }
       return Messages.successCreated;
     } catch (error) {
-      console.log(error)
+      console.log(error);
       throw new HttpException(error, 500);
     }
   }
@@ -60,8 +61,28 @@ export class ChatService {
 
   async findById(id: string) {
     try {
-      return await this.model.findById(id);
+      const res = await this.model
+        .findById(id)
+        .populate('users', 'email username profileImg', this.userModel);
+      let data = { ...res };
+      data.users = [];
+      return {
+        users: res.users,
+        data: data,
+      };
     } catch (error) {
+      console.log(error);
+      throw new HttpException(error, 500);
+    }
+  }
+  async getUsers(id: string) {
+    try {
+      const res = await this.model
+        .findById(id)
+        .populate('users', 'email username profileImg', this.userModel);
+      return res.users;
+    } catch (error) {
+      console.log(error);
       throw new HttpException(error, 500);
     }
   }

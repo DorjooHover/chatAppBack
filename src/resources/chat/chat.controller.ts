@@ -37,10 +37,14 @@ export class ChatController {
   findAll() {
     return this.service.findAll();
   }
-  @Roles(UserTypes.ADMIN)
+
   @Get('/get/:id')
   findById(@Param('id') id: string) {
     return this.service.findById(id);
+  }
+  @Get('/users/:id')
+  getUsers(@Param('id') id: string) {
+    return this.service.getUsers(id);
   }
 
   @Get('/search/:type/:value')
