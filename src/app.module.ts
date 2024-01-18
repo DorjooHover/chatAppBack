@@ -20,6 +20,7 @@ import { ChatModule } from './resources/chat/chat.module';
     MongooseModule.forRoot(appConfig().dbUrl, {
       // useNewUrlParser: true,
       // // useUnifiedTopology: true,
+      
       dbName: appConfig().dbName,
     }),
 
@@ -30,10 +31,7 @@ import { ChatModule } from './resources/chat/chat.module';
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
+    
   ],
 })
 export class AppModule {}

@@ -16,9 +16,10 @@ export class Message {
 
   //   @Prop({ required: true })
   //   type: MessageTypes;
-
+  @Prop({type: Types.ObjectId, ref: 'Messages'})
+  parent: string;
   @ApiProperty()
-  @Prop()
+@Prop()
   content: string;
 
   @Prop({ required: true, type: Types.ObjectId, ref: 'Users' })

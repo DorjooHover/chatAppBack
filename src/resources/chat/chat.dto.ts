@@ -19,7 +19,7 @@ export class ChatDto {
 
   @ApiProperty()
 
-  number: number;
+  number: string;
   @ApiProperty()
   groupNumber: number;
 

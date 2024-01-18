@@ -12,6 +12,9 @@ export class MessageDto {
     @ApiProperty()
     // @IsString()
     content: string
+    @ApiProperty()
+    // @IsString()
+    parent: string
 
     @ApiProperty()
 

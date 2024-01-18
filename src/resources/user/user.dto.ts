@@ -14,6 +14,10 @@ export class UserDto {
 
   @ApiProperty()
   nickname: string;
+  @ApiProperty()
+  lastname: string;
+  @ApiProperty()
+  firstname: string;
 
   @ApiProperty()
   // @IsString()

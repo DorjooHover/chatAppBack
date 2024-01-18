@@ -7,6 +7,8 @@ import {
   Body,
   Param,
   Request,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
@@ -24,11 +26,16 @@ export class ChatController {
   constructor(private service: ChatService) {}
   @Post()
   create(@Body() dto: ChatDto, @Request() { user }) {
-    // console.log(user);
     try {
-      return this.service.create(dto, user['_id']);
+      if (dto.types != ChatTypes.TEAM && user.role == UserTypes.USER) {
+        return new HttpException(
+          'Хэрэглэгчийн ролл хүрэхгүй байна.',
+          HttpStatus.UNPROCESSABLE_ENTITY,
+        );
+      }
+      return this.service.create(dto, user['_id'], user.role);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -49,14 +56,13 @@ export class ChatController {
 
   @Get('/search/:type/:value')
   search(@Param('type') type: ChatTypes, @Param('value') value: string) {
-    return this.service.search(value, type)
+    return this.service.search(value, type);
   }
 
   @Get('/me/:type')
-  @ApiParam({name:"type"})
+  @ApiParam({ name: 'type' })
   findByMe(@Param('type') type: ChatTypes, @Request() { user }) {
-
-    return this.service.findMe(type,  user['_id']);
+    return this.service.findMe(type, user['_id']);
   }
 
   @Get('/join/:id')

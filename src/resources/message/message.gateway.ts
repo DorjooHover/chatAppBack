@@ -61,8 +61,5 @@ export class MessageGateway {
     });
   }
 
-  @SubscribeMessage('test')
-  async test(@MessageBody() data: any) {
-    this.server.emit('test', data);
-  }
+
 }

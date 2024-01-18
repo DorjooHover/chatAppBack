@@ -20,7 +20,7 @@ export class Chat {
   nickname: string;
 
   @Prop()
-  number: number;
+  number: string;
   @Prop()
   groupNumber: number;
 

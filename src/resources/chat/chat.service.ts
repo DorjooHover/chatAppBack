@@ -13,38 +13,41 @@ export class ChatService {
     @InjectModel(User.name) private userModel: Model<UserDocument>,
   ) {}
 
-  async create(dto: ChatDto, user: string) {
+  async create(dto: ChatDto, user: string, role: UserTypes) {
     try {
       const chat = await this.model.findById(new Types.ObjectId(dto.chat));
+      let res;
       if (chat) {
-        await this.model.create({
+        res = await this.model.create({
           created: user,
           name: chat.name,
           number: chat.number,
-          nickname: chat.nickname,
-          groupNumber: chat.groupNumber,
+          nickname:
+            chat.types == ChatTypes.LESSON
+              ? chat.nickname + `_${dto.groupNumber}`
+              : chat.nickname,
+          groupNumber:
+            chat.types == ChatTypes.LESSON ? dto.groupNumber : chat.groupNumber,
           teacher: chat.teacher,
           types: dto.types,
-          users: [user, ...dto.users],
+          users: role == UserTypes.USER ? [user, ...dto.users] : [],
         });
       } else {
-        await this.model.create({
+        res = await this.model.create({
           created: user,
           name: dto.name,
-          number: dto.number,
+          number: dto.number.toUpperCase(),
           nickname:
             dto.nickname != undefined
               ? dto.nickname
-              : `${dto.name.toUpperCase} ${
-                  dto.number != undefined ? dto.number : ''
-                }`,
-          groupNumber: dto.groupNumber,
+              : `${dto.name.toUpperCase()}${dto.number.toUpperCase()}`,
+
           teacher: dto.teacher,
           types: dto.types,
-          users: [user, ...dto.users],
+          users: [],
         });
       }
-      return Messages.successCreated;
+      return res;
     } catch (error) {
       console.log(error);
       throw new HttpException(error, 500);
@@ -61,15 +64,7 @@ export class ChatService {
 
   async findById(id: string) {
     try {
-      const res = await this.model
-        .findById(id)
-        .populate('users', 'email username profileImg', this.userModel);
-      let data = { ...res };
-      data.users = [];
-      return {
-        users: res.users,
-        data: data,
-      };
+      return await this.model.findById(id);
     } catch (error) {
       console.log(error);
       throw new HttpException(error, 500);

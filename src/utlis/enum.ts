@@ -7,6 +7,7 @@ export enum UserTypes {
 
 export enum ChatTypes {
   GROUP = 'GROUP',
+  LESSON = 'LESSON',
   TEAM = 'TEAM',
   ALL = 'ALL',
 }

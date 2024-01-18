@@ -17,23 +17,50 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
   async signIn(dto: UserDto) {
-
-    let user = await this.usersService.findOne(dto.email);
-    let message = Messages.successLoggedIn;
-    if (!user) {
-      user = await this.usersService.create({
-        username: dto.username,
-        email: dto.email,
-        profileImg: dto.profileImg,
-        role: UserTypes.USER,
-        nickname: dto.nickname ?? '',
-      });
-      message = Messages.successRegistered;
+    try {
+      let user = await this.usersService.findOne(dto.email);
+      let message = Messages.successLoggedIn;
+      if (!user) {
+        user = await this.usersService.create({
+          username: dto.username ?? dto.email.split('@')[0],
+          email: dto.email,
+          profileImg: dto.profileImg,
+          role: UserTypes.USER,
+          lastname: dto.lastname ?? '',
+          firstname: dto.firstname ?? '',
+          nickname: dto.nickname ?? '',
+        });
+        message = Messages.successRegistered;
+      }
+      const payload = { email: user.email };
+      return {
+        access_token: await this.jwtService.signAsync(payload),
+        message: message,
+      };
+    } catch (e) {
+      return Messages.occured;
     }
-    const payload = { email: user.email };
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-      message: message,
-    };
+  }
+  async createTeacher(dto: UserDto) {
+    try {
+      let user = await this.usersService.findOne(dto.email);
+      let message = Messages.successLoggedIn;
+      if (!user) {
+        user = await this.usersService.create({
+          username: dto.username,
+          email: dto.email,
+          profileImg: dto.profileImg,
+          role: UserTypes.TEACHER,
+          lastname: dto.lastname ?? '',
+          firstname: dto.firstname ?? '',
+          nickname: dto.nickname ?? '',
+        });
+        message = Messages.successRegistered;
+      }
+      return message;
+    } catch (e) {
+      console.log(e);
+      return Messages.occured;
+    }
   }
 }

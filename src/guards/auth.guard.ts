@@ -39,7 +39,9 @@ export class AuthGuard implements CanActivate {
 
       const user = await this.userService.findOne(decoded.email);
 
+
       request.user = user;
+   
 
       return true;
     } catch (e) {
