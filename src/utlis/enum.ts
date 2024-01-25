@@ -27,6 +27,12 @@ export enum ProductInfoViewTypes {
   ALL = "ALL",
   VIEW = "VIEW",
 }
+export enum QuestionTypes {
+  TEXT = "TEXT",
+  RADIO = "RADIO",
+  CHECKBOX = "CHECKBOX",
+ 
+}
 export enum ProductInfoTypes {
   RELEASE = "RELEASE",
   ROADMAP = "ROADMAP",

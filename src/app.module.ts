@@ -11,6 +11,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ChatModule } from './resources/chat/chat.module';
 import { ProductInfoModule } from './resources/info/info.module';
 import { ContentModule } from './resources/content/content.module';
+import { SurveyModule } from './resources/survey/survey.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { ContentModule } from './resources/content/content.module';
     ChatModule,
     ProductInfoModule,
     ContentModule,
+    SurveyModule,
   ],
   controllers: [],
   providers: [
