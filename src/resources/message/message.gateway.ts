@@ -60,6 +60,4 @@ export class MessageGateway {
       id: res['_id'],
     });
   }
-
-
 }

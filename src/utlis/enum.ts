@@ -17,6 +17,20 @@ export enum MessageTypes {
   LINK = 'LINK',
   IMG = 'IMG',
 }
+export enum ContentTypes {
+  TEXT = 'TEXT',
+  LINK = 'LINK',
+  IMG = 'IMG',
+}
+export enum ProductInfoViewTypes {
+  HIDE = "HIDE",
+  ALL = "ALL",
+  VIEW = "VIEW",
+}
+export enum ProductInfoTypes {
+  RELEASE = "RELEASE",
+  ROADMAP = "ROADMAP",
+}
 export enum ChatMessageTypes {
   JOIN = 'JOIN',
   ACTIVE = 'ACTIVE',

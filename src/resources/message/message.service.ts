@@ -58,6 +58,11 @@ export class MessageService {
     }
   }
 
+
+  async join(id: string) {
+    
+  }
+
   async setReaction(data: MessageReaction) {
     try {
       let message = await this.model.findById(data.id);

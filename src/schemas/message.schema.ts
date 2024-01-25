@@ -1,6 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, IsEnum } from 'class-validator';
+
 import mongoose, { Document, Types } from 'mongoose';
 import { MessageTypes, ReactionTypes } from 'src/utlis/enum';
 import { User } from './user.schema';
@@ -18,7 +17,7 @@ export class Message {
   //   type: MessageTypes;
   @Prop({type: Types.ObjectId, ref: 'Messages'})
   parent: string;
-  @ApiProperty()
+
 @Prop()
   content: string;
 
