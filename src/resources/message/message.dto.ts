@@ -1,10 +1,10 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsEnum, IsInt, IsNotEmpty, IsString } from "class-validator";
 import { Chat,  User } from "src/schemas";
-import { MessageTypes, ReactionTypes } from "src/utlis/enum";
+import { ContentTypes, ReactionTypes } from "src/utlis/enum";
 
 export class MessageDto {
-    @ApiProperty({type: MessageTypes})
+    @ApiProperty({type: ContentTypes})
     // @IsEnum(MessageTypes)
     // @IsNotEmpty()
     messageType: string

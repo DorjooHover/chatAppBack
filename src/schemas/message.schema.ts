@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 import mongoose, { Document, Types } from 'mongoose';
-import { MessageTypes, ReactionTypes } from 'src/utlis/enum';
+import { ContentTypes, ReactionTypes } from 'src/utlis/enum';
 import { User } from './user.schema';
 
 import { Chat } from './chat.schema';
@@ -11,10 +11,10 @@ export type MessageDocument = Document & Message;
 @Schema({ timestamps: true })
 export class Message {
   @Prop({ required: true })
-  messageType: MessageTypes;
+  messageType: ContentTypes;
 
   //   @Prop({ required: true })
-  //   type: MessageTypes;
+  //   type: ContentTypes;
   @Prop({type: Types.ObjectId, ref: 'Messages'})
   parent: string;
 

@@ -12,30 +12,28 @@ export enum ChatTypes {
   ALL = 'ALL',
 }
 
-export enum MessageTypes {
-  TEXT = 'TEXT',
-  LINK = 'LINK',
-  IMG = 'IMG',
-}
 export enum ContentTypes {
   TEXT = 'TEXT',
   LINK = 'LINK',
   IMG = 'IMG',
 }
 export enum ProductInfoViewTypes {
-  HIDE = "HIDE",
-  ALL = "ALL",
-  VIEW = "VIEW",
+  HIDE = 'HIDE',
+  ALL = 'ALL',
+  VIEW = 'VIEW',
 }
-export enum QuestionTypes {
-  TEXT = "TEXT",
-  RADIO = "RADIO",
-  CHECKBOX = "CHECKBOX",
- 
+export enum SurveyTypes {
+  QUESTION = 'QUESTION',
+  ANSWER = 'ANSWER',
+}
+export enum TextBoxTypes {
+  TEXT = 'TEXT',
+  RADIO = 'RADIO',
+  CHECKBOX = 'CHECKBOX',
 }
 export enum ProductInfoTypes {
-  RELEASE = "RELEASE",
-  ROADMAP = "ROADMAP",
+  RELEASE = 'RELEASE',
+  ROADMAP = 'ROADMAP',
 }
 export enum ChatMessageTypes {
   JOIN = 'JOIN',
@@ -51,4 +49,11 @@ export enum ReactionTypes {
   WOW = 'WOW',
   SAD = 'SAD',
   ANGRY = 'ANGRY',
+}
+
+
+
+export enum SurveySortTypes {
+  TITLE = "TITLE",
+  LASTOPENED = "LASTOPENED"
 }

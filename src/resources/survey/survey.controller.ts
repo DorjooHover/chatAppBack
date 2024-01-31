@@ -2,9 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put, Request, UseGuards } f
 import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { SurveyService } from './survey.service';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { SurveyDto, UserAnswerDto } from './survey.dto';
+import { SurveyDto } from './survey.dto';
 import { Roles } from 'src/guards/roles.decorator';
-import { UserTypes } from 'src/utlis/enum';
+import { SurveySortTypes, UserTypes } from 'src/utlis/enum';
 
 @Controller('survey')
 @ApiTags('Survey')
@@ -16,6 +16,7 @@ export class SurveyController {
     
     @Get()
     findAll() {
+        
         return this.service.findAll()
     }
 
@@ -24,9 +25,16 @@ export class SurveyController {
     findById(@Param('id') id: string) {
         return this.service.findById(id)
     }
+    @Get('user/:sort')
+    @ApiParam({name: 'sort'})
+  
+    findUser(@Request() {user}, @Param('sort') sort: SurveySortTypes) {
+        return this.service.findUser(user['_id'], sort)
+    }
     
     @Post()
     create(@Body() dto: SurveyDto, @Request() {user}) {
+
         return this.service.create(dto, user['_id'])
     }
     
@@ -36,11 +44,6 @@ export class SurveyController {
         return this.service.edit(dto, id)
     }
 
-    @Put('form/:id')
-    @ApiParam({name: 'id'})
-    form(@Body() dto: UserAnswerDto, @Request() {user}, @Param('id') id: string) {
-        return this.service.form(dto, user['_id'], id)
-    }
     
     @Delete(':id')
     @ApiParam({name: 'id'})
