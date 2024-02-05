@@ -1,6 +1,6 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { Survey, SurveyDocument } from 'src/schemas';
 import { Messages } from 'src/utlis/strings';
 import { SurveyDto } from './survey.dto';
@@ -59,6 +59,8 @@ export class SurveyService {
   }
   async edit(dto: SurveyDto, id: string) {
     try {
+      const created = new Types.ObjectId(dto.created)
+      dto.created = created
       const res = await this.model.findByIdAndUpdate(id, dto);
       return res;
     } catch (error) {
