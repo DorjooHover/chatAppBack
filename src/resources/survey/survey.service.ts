@@ -70,7 +70,7 @@ export class SurveyService {
   async delete(id: string) {
     try {
       const res = await this.model.deleteOne({ id: id });
-      return res;
+      return true;
     } catch (error) {
       throw new HttpException(Messages.occured, 500);
     }
